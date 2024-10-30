@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Module07DataAccess.ViewModel"
+             x:Class="Module07DataAccess.View.ViewPersonal"
+             Title="ViewPersonal">
+    <ScrollView>
+    <VerticalStackLayout>
+        <Label
+            Text="Personal Information"
+            FontSize="20"
+            HorizontalOptions="Center"/>
+
+            <ListView ItemsSource="{Binding PersonalList}" SelectedItem="{Binding SelectedPersonal}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding Name}" 
+                                       FontSize="Medium"/>
+                                
+                                <Label Text="{Binding Gender}"
+                                       FontSize="Medium"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type local:PersonalViewModel}}, Path=SelectedPersonCommand}"
+                                                          CommandParameter="{Binding .}"/>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </ViewCell>
+                   <!-- <TextCell Text="{Binding Name}" 
+                            Detail="{Binding Gender}"/> -->
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+
+        <Button Text="LoadData" Command="{Binding LoadDataCommand}" />
+
+        <Label x:Name="ConnectionStatusLabel"
+               Text="{Binding statusMessage}"
+               FontSize="18"
+               HorizontalOptions="Center"/>
+
+        <Label Text="Add New Person"
+               FontSize="Large"/>
+        
+        <Entry Placeholder="Name"
+               Text="{Binding NewPersonalName}"/>
+
+        <Entry Placeholder="Gender"
+               Text="{Binding NewPersonalGender}"/>
+        
+        <Entry Placeholder="ContactNo"
+               Text="{Binding NewPersonalContactNo}"/>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Add Person" 
+                    Command="{Binding AddPersonalCommand}"/>
+            
+            <Button Text="Delete Person" 
+                    Command="{Binding DeletePersonCommand}"
+                    IsEnabled="{Binding IsPersonSelected}"/>
+            
+            </StackLayout>
+                     
+
+       </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
